@@ -1,0 +1,23 @@
+{
+  "model": "MERCEDES",
+  "price": 210,
+  "mileage": 8500,
+  "engine": {
+    "type": "GASOLINE",
+    "power": 117.0
+  },
+  "carBody": {
+    "color": "RED",
+    "type": "HATCHBACK",
+    "components": [
+      "ALLOY WHEELS",
+      "AIR CONDITIONING",
+      "ABS"
+    ]
+  },
+  "wheel": {
+    "type": "SUMMER",
+    "model": "PIRELLI",
+    "size": 16
+  }
+}

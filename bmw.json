@@ -1,0 +1,22 @@
+{
+  "model": "BMW",
+  "price": 130,
+  "mileage": 13000,
+  "engine": {
+    "type": "LPG",
+    "power": 120.0
+  },
+  "carBody": {
+    "color": "WHITE",
+    "type": "SEDAN",
+    "components": [
+      "RADIO",
+      "ALLOY WHEELS"
+    ]
+  },
+  "wheel": {
+    "type": "WINTER",
+    "model": "DUNLOP",
+    "size": 17
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "model": "CITROEN",
+  "price": 220,
+  "mileage": 1000,
+  "engine": {
+    "type": "DIESEL",
+    "power": 133.0
+  },
+  "carBody": {
+    "color": "SILVER",
+    "type": "COMBI",
+    "components": [
+      "RADIO",
+      "ALLOY WHEELS",
+      "AIR CONDITIONING",
+      "ABS"
+    ]
+  },
+  "wheel": {
+    "type": "SUMMER",
+    "model": "DUNLOP",
+    "size": 17
+  }
+}
