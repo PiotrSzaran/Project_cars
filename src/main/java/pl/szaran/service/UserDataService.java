@@ -1,6 +1,7 @@
 package pl.szaran.service;
 
 import pl.szaran.exceptions.MyException;
+import pl.szaran.model.enums.CarBodyType;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -34,6 +35,22 @@ public class UserDataService {
             throw new MyException("Boolean value is not correct");
         }
         return text.matches("1");
+    }
+
+    public static CarBodyType getCarBodyType() {
+        CarBodyType[] carBodyTypes = CarBodyType.values();
+        AtomicInteger counter = new AtomicInteger(1);
+
+        Arrays.stream(carBodyTypes).forEach(carBodyType -> System.out.println(counter.getAndAdd(1) + ". " + carBodyType));
+        System.out.println("Wybierz numer kryterium sortowaina:");
+        String text = scanner.nextLine();
+
+        if (!text.matches("[1-" + carBodyTypes.length + "]")) {
+            throw new MyException("Sort types option value is not correct");
+        }
+        System.out.println("Wybrano: " + carBodyTypes[Integer.parseInt(text) - 1]);
+
+        return carBodyTypes[Integer.parseInt(text) - 1];
     }
 
     public static void close() {
