@@ -3,6 +3,7 @@ package pl.szaran.service;
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.enums.CarBodyType;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -51,6 +52,16 @@ public class UserDataService {
         System.out.println("Wybrano: " + carBodyTypes[Integer.parseInt(text) - 1]);
 
         return carBodyTypes[Integer.parseInt(text) - 1];
+    }
+
+    public static BigDecimal getBigDecimal(String message) {
+        System.out.println(message);
+        String text = scanner.nextLine();
+
+        if (!text.matches("\\d+")) {
+            throw new MyException("BigDecimal value is not correct");
+        }
+        return new BigDecimal(text);
     }
 
     public static void close() {
