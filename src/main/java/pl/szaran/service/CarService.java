@@ -4,11 +4,10 @@ package pl.szaran.service;
 import lombok.Getter;
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.Car;
+import pl.szaran.model.enums.CarBodyType;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -64,5 +63,46 @@ public class CarService {
             Collections.reverse(sortedCarsByOrder);
         }
         return sortedCarsByOrder;
+    }
+
+    /**
+     * Metoda zwraca kolekcję samochodów o określonym rodzaju nadwozia
+     * przekazanym jako argument (CarBodyType) oraz o cenie z
+     * przedziału <a, b>, gdzie a oraz b to kolejne argumenty metody.
+     */
+
+    public List<Car> getCarsByBodyTypeAndPriceBetween(CarBodyType carBodyType, BigDecimal firstPrice, BigDecimal secondPrice) {
+
+        if (carBodyType == null) {
+            throw new MyException("Car body type is null");
+        }
+        if (!EnumSet.allOf(CarBodyType.class).contains(carBodyType)) {
+            throw new MyException("car body type incorrect value: " + carBodyType);
+        }
+        if (firstPrice == null) {
+            throw new MyException("first price is null");
+        }
+        if (firstPrice.compareTo(BigDecimal.ZERO) < 0) {
+            throw new MyException("first price should be equal or bigger than 0");
+        }
+        if (secondPrice == null) {
+            throw new MyException("second price is null");
+        }
+        if (secondPrice.compareTo(BigDecimal.ZERO) < 0) {
+            throw new MyException("second price should be equal or bigger than 0");
+        }
+
+        return (firstPrice.compareTo(secondPrice)) < 0 ? cars
+                .stream()
+                .filter(car -> car.getCarBody().getType().equals(carBodyType))
+                .filter(car -> car.getPrice().compareTo(firstPrice) > -1)
+                .filter(car -> car.getPrice().compareTo(secondPrice) < 1)
+                .collect(Collectors.toList())
+                : cars
+                .stream()
+                .filter(car -> car.getCarBody().getType().equals(carBodyType))
+                .filter(car -> car.getPrice().compareTo(secondPrice) > -1)
+                .filter(car -> car.getPrice().compareTo(firstPrice) < 1)
+                .collect(Collectors.toList());
     }
 }
