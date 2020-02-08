@@ -105,4 +105,13 @@ public class CarService {
                 .filter(car -> car.getPrice().compareTo(firstPrice) < 1)
                 .collect(Collectors.toList());
     }
+
+    public List<Car> getCarsByBodyTypeAndPriceBetween() {
+
+        var carBodyType = UserDataService.getCarBodyType();
+        var firstPrice = UserDataService.getBigDecimal("podaj pierwszą wartość ceny");
+        var secondPrice = UserDataService.getBigDecimal("podaj pierwszą wartość ceny");
+
+        return getCarsByBodyTypeAndPriceBetween(carBodyType, firstPrice, secondPrice);
+    }
 }
