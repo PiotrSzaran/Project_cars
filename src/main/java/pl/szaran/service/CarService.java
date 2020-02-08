@@ -5,6 +5,9 @@ import lombok.Getter;
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.Car;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,5 +37,32 @@ public class CarService {
                 .stream()
                 .map(s -> new Car(s))
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Metoda zwraca kolekcję samochodów posortowaną według kryterium
+     * podanego jako argument. Metoda powinna umożliwiać sortowanie
+     * według ilości komponentów, mocy silnika oraz rozmiaru opony.
+     * Dodatkowo metoda powinna umożliwiać sortowanie rosnąco oraz
+     * malejąco.
+     */
+
+    public List<Car> sortBy() {
+
+        SortType sortType = UserDataService.getSortType();
+        boolean ascending = UserDataService.getSortOrder();
+
+        //switch expressions must be on
+        var sortedCars = switch (sortType) {
+            case COMPONENT_NUMBER -> cars.stream().sorted(Comparator.comparing(car -> car.getCarBody().getComponents().size()));
+            case ENGINE_POWER -> cars.stream().sorted(Comparator.comparing(car -> car.getEngine().getPower()));
+            default -> cars.stream().sorted(Comparator.comparing(car -> car.getWheel().getSize()));
+        };
+
+        var sortedCarsByOrder = sortedCars.collect(Collectors.toList());
+        if (!ascending) {
+            Collections.reverse(sortedCarsByOrder);
+        }
+        return sortedCarsByOrder;
     }
 }
