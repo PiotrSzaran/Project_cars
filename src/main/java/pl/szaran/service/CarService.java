@@ -137,4 +137,10 @@ public class CarService {
                 .sorted(Comparator.comparing(Car::getModel))
                 .collect(Collectors.toList());
     }
+
+    public List<Car> getCarsByEngineType() {
+        EngineType engineType = UserDataService.getEngineType();
+
+        return getCarsByEngineType(engineType);
+    }
 }
