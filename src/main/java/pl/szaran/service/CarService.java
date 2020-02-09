@@ -5,6 +5,7 @@ import lombok.Getter;
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.Car;
 import pl.szaran.model.enums.CarBodyType;
+import pl.szaran.model.enums.EngineType;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -113,5 +114,27 @@ public class CarService {
         var secondPrice = UserDataService.getBigDecimal("podaj pierwszą wartość ceny");
 
         return getCarsByBodyTypeAndPriceBetween(carBodyType, firstPrice, secondPrice);
+    }
+
+    /**
+     * Metoda zwraca posortowaną alfabetycznie kolekcję modeli
+     * samochodów, które posiadają typ silnika (EngineType) przekazany
+     * jako argument metody.
+     */
+
+    public List<Car> getCarsByEngineType(EngineType engineType) {
+
+        if (engineType == null) {
+            throw new MyException("Engine type is null");
+        }
+        if (!EnumSet.allOf(EngineType.class).contains(engineType)) {
+            throw new MyException("Engine type incorrect value: " + engineType);
+        }
+
+        return cars
+                .stream()
+                .filter(car -> car.getEngine().getType().equals(engineType))
+                .sorted(Comparator.comparing(Car::getModel))
+                .collect(Collectors.toList());
     }
 }
