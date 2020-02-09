@@ -44,11 +44,11 @@ public class UserDataService {
         AtomicInteger counter = new AtomicInteger(1);
 
         Arrays.stream(carBodyTypes).forEach(carBodyType -> System.out.println(counter.getAndAdd(1) + ". " + carBodyType));
-        System.out.println("Wybierz numer kryterium sortowaina:");
+        System.out.println("Wybierz rodzaj nadwozia:");
         String text = scanner.nextLine();
 
         if (!text.matches("[1-" + carBodyTypes.length + "]")) {
-            throw new MyException("Sort types option value is not correct");
+            throw new MyException("Car body type option value is not correct");
         }
         System.out.println("Wybrano: " + carBodyTypes[Integer.parseInt(text) - 1]);
 
