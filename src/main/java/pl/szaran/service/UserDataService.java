@@ -2,6 +2,7 @@ package pl.szaran.service;
 
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.enums.CarBodyType;
+import pl.szaran.model.enums.EngineType;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -52,6 +53,22 @@ public class UserDataService {
         System.out.println("Wybrano: " + carBodyTypes[Integer.parseInt(text) - 1]);
 
         return carBodyTypes[Integer.parseInt(text) - 1];
+    }
+
+    public static EngineType getEngineType() {
+        EngineType[] engineTypes = EngineType.values();
+        AtomicInteger counter = new AtomicInteger(1);
+
+        Arrays.stream(engineTypes).forEach(engineType -> System.out.println(counter.getAndAdd(1) + ". " + engineType));
+        System.out.println("Wybierz rodzaj silnika");
+        String text = scanner.nextLine();
+
+        if (!text.matches("[1-" + engineTypes.length + "]")) {
+            throw new MyException("Engine Type option value is not correct");
+        }
+        System.out.println("Wybrano: " + engineTypes[Integer.parseInt(text) - 1]);
+
+        return engineTypes[Integer.parseInt(text) - 1];
     }
 
     public static BigDecimal getBigDecimal(String message) {
