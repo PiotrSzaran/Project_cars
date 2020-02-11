@@ -143,4 +143,24 @@ public class CarService {
 
         return getCarsByEngineType(engineType);
     }
+
+    /**
+     * Metoda zwraca mapę, w której kluczem jest obiekt klasy Car,
+     * natomiast wartością jest liczba kilometrów, które samochód
+     * przejechał. Pary w mapie posortowane są malejąco według
+     * wartości.
+     */
+
+    public Map<Car, Long> getCarsWithMileage() {
+
+        Map<Car, Long> map = new HashMap<>();
+
+        cars.forEach(car -> map.put(car, car.getMileage()));
+
+        return map.entrySet()
+                .stream()
+                .sorted(Map.Entry.<Car, Long>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (v1, v2) -> v1, LinkedHashMap::new));
+
+    }
 }
